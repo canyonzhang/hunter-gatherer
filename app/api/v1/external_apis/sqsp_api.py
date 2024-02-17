@@ -3,9 +3,9 @@ import os
 
 class SquareSpaceAPI(BaseApi):
     def __init__(self):
-        super().__init__('https://api.squarespace.com')  
-        # self.api_key = os.getenv('SQUARESPACE_API_KEY')
-        self.api_key = "fd12f7c1-ccd1-489d-adc5-164687c4791b"
+        api_key = os.getenv('SQUARESPACE_API_KEY')
+        super().__init__('https://api.squarespace.com') 
+        self.api_key = api_key
 
     def make_request(self, url: str, method: str, headers: dict = None, params: dict = None, data: dict = None) -> dict:
         if headers is None:
@@ -31,10 +31,6 @@ class SquareSpaceAPI(BaseApi):
         response = self.make_request('/1.0/commerce/orders', 'GET', params=params)
         return response
     
-
 squareSpaceAPI = SquareSpaceAPI()
 orders = squareSpaceAPI.get_orders(modifiedAfter='2024-12-10T00:00:00Z', modifiedBefore='2024-02-17T23:59:59Z')
 print(orders)   
-    
-    
-    
