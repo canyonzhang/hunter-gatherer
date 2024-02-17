@@ -11,8 +11,6 @@ class PayPalAPI(BaseApi):
         self.headers = {
         }
 
-
-
     def get_oauth_token(self):
         auth_data = {"grant_type": "client_credentials"}
         auth_response = requests.post(self.base_url + "/v1/oauth2/token", auth=(self.client_id, self.client_secret), data=auth_data, headers=self.headers)
