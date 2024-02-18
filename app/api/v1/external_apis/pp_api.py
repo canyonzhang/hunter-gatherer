@@ -1,8 +1,10 @@
 from base_api import BaseApi
+from dotenv import load_dotenv
+import os
 
 import requests
 
-
+load_dotenv()
 class PayPalAPI(BaseApi):
     def __init__(self, client_id, client_secret):
         super().__init__("https://api-m.paypal.com")
@@ -48,8 +50,9 @@ class PayPalAPI(BaseApi):
 
 
 # Example call
-paypal_api = PayPalAPI('AcDpeX9nbG4qRF3NXXhq4PcrtlP7-0fbF7XBSaMxpboQpQStViOMKMlqVGfJ0wrSDWg71_Zp1w06hFY_',
-                       'EITIFRLCoS05rQd5cqDRkPkjjduQZ4AHOWkPFHwSjN-D8L2CgsQ6nCcbzsrEt40BvVTBFZSzcRGtGB8P')
+client_id = os.getenv("PayPal_CLIENT_ID")
+secret_key = os.getenv("PayPal_SECRET_KEY")
+paypal_api = PayPalAPI(client_id, secret_key)
 transactions = paypal_api.search_transactions('2023-10-01T00:00:00-0700', '2023-10-31T00:00:00-0700')
 donations = paypal_api.get_donations('2023-12-01T00:00:00-0700', '2023-12-30T00:00:00-0700')
 print(donations)
