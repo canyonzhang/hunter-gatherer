@@ -1,8 +1,10 @@
 from base_api import BaseApi
+from dotenv import load_dotenv
+import os
 
 import requests
 
-
+load_dotenv()
 class PayPalAPI(BaseApi):
     def __init__(self, client_id, client_secret):
         super().__init__("https://api-m.paypal.com")
@@ -32,6 +34,8 @@ class PayPalAPI(BaseApi):
         return self.make_request("/v1/reporting/transactions", "GET", headers=self.headers, params=params)
         
 # Example call
-paypal_api = PayPalAPI('AcDpeX9nbG4qRF3NXXhq4PcrtlP7-0fbF7XBSaMxpboQpQStViOMKMlqVGfJ0wrSDWg71_Zp1w06hFY_', 'EITIFRLCoS05rQd5cqDRkPkjjduQZ4AHOWkPFHwSjN-D8L2CgsQ6nCcbzsrEt40BvVTBFZSzcRGtGB8P')
+client_id = os.getenv("PayPal_CLIENT_ID")
+secret_key = os.getenv("PayPal_SECRET_KEY")
+paypal_api = PayPalAPI(client_id, secret_key)
 transactions = paypal_api.search_transactions('2023-07-01T00:00:00-0700', '2023-07-03T00:00:00-0700')
-print(transactions['transaction-details'])
+print(transactions['transaction_details'])
